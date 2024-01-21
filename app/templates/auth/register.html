@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auth/register_styles.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/auth/register/register_utils.js') }}" defer></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/auth/register/register_script.js') }}" defer></script>
+    <title>Register</title>
+</head>
+
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="POST" action="{{ url_for('auth.register') }}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required
+                oninput="validateUsername();fetchExistingValues(); resetFieldWarning('username','username')">
+            <span class="warning-message" id="username-warning"></span>
+            <span class="required-warning" id="username-required-warning"></span>
+            <span class="exists-warning" id="username-exists-warning"></span>
+
+            <label for="password">Password:</label>
+            <div class="password-inputs">
+                {% for i in range(16) %}
+                <input type="password" name="password{{ i }}" maxlength="1"
+                    oninput="updatePasswordStrength(); resetPasswordWarning()">
+                {% endfor %}
+            </div>
+            <span class="warning-message" id="password-warning"></span>
+            <span class="required-warning" id="password-required-warning"></span>
+
+            <div id="password-strength-indicator"></div>
+
+            <label for="document_id">Document ID:</label>
+            <input type="text" id="document_id" name="document_id" required
+                oninput="validateDocumentId();fetchExistingValues(); resetFieldWarning('document-id', 'document_id')">
+            <span class="warning-message" id="document-id-warning"></span>
+            <span class="required-warning" id="document-id-required-warning"></span>
+            <span class="exists-warning" id="document-id-exists-warning"></span>
+
+            <label for="card_number">Card Number:</label>
+            <input type="text" id="card_number" name="card_number" required
+                oninput="fetchExistingValues(); validateCardNumber(); resetFieldWarning('card-number', 'card_number')">
+            <span class="warning-message" id="card-number-warning"></span>
+            <span class="required-warning" id="card-number-required-warning"></span>
+            <span class="exists-warning" id="card-number-exists-warning"></span>
+
+            <button type="button" onclick="validateForm()" id="register_button">Register</button>
+        </form>
+        <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.</p>
+    </div>
+    <div id="registration-error" class="error-message"></div>
+</body>
+
+</html>

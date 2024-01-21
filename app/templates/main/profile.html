@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main/profile_styles.css') }}">
+  <title>Profile</title>
+</head>
+<body>
+  <div class="profile-container">
+    <h2>User Profile</h2>
+    <div class="profile-info">
+      <label for="username">Username:</label>
+      <p>{{ current_user.username }}</p>
+    </div>
+
+    <div class="profile-info">
+      <label for="document_id">Document ID:</label>
+      <p class="sensitive-data hidden">{{ current_user.document_id }}</p>
+    </div>
+
+    <div class="profile-info">
+      <label for="card_number">Card Number:</label>
+      <p class="sensitive-data hidden">{{ current_user.card_number }}</p>
+    </div>
+
+    <button class="reveal-button" onclick="revealSensitiveData()">Reveal Sensitive Data</button>
+    
+    <div class="back-to-dashboard">
+      <a href="{{ url_for('main.dashboard') }}">
+        <button class="back-button">Back</button>
+      </a>
+      <span class="back-text">Back to Dashboard</span>
+    </div>
+
+    <script>
+      function revealSensitiveData() {
+        const sensitiveDataElements = document.querySelectorAll('.sensitive-data');
+        const revealButton = document.querySelector('.reveal-button');
+
+        sensitiveDataElements.forEach(element => {
+          element.classList.toggle('hidden');
+        });
+
+        const buttonText = revealButton.innerText;
+        revealButton.innerText = buttonText === 'Reveal Sensitive Data' ? 'Hide Data' : 'Reveal Sensitive Data';
+      }
+    </script>
+  </div>
+</body>
+</html>

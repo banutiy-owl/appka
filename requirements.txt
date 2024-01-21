@@ -1,0 +1,8 @@
+Flask
+Jinja2
+Flask-Login
+Flask-Caching
+Flask-Bcrypt
+SQLAlchemy
+Flask-SQLAlchemy
+MarkupSafe

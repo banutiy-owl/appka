@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main/transfer_styles.css') }}">
+  <title>Transfer</title>
+</head>
+<body>
+  <div class="transfer-container">
+    <h2>Transfer Money</h2>
+    <form method="POST" action="{{ url_for('main.transfer') }}">
+      <label for="amount">Amount:</label>
+      <input type="text" id="amount" name="amount" required>
+      
+      <label for="recipient">Recipient:</label>
+      <input type="text" id="recipient" name="recipient" required>
+      {% if warning %}
+          <div class="warning-message">{{ warning }}</div>
+      {% endif %}
+
+      <button type="submit">Submit</button>
+
+    </form>
+    <div class="back-to-dashboard">
+      <a href="{{ url_for('main.dashboard') }}">
+        <button class="back-button" formnovalidate>Back</button>
+      </a>
+      <span class="back-text">Back to Dashboard</span>
+    </div>
+  </div>
+</body>
+</html>

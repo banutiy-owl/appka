@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - ./ssl:/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web

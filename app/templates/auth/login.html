@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auth/login_styles.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/auth/login_script.js') }}"></script>
+  <title>Login</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form method="POST" action="{{ url_for('auth.login') }}" onsubmit="showLoading()">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      {% if warning %}
+      <div class="warning-message">{{ warning }}</div>
+      {% endif %}
+      <button type="submit" id="submit-button">Next</button>
+    </form>
+    <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register here</a>.</p>
+    <div id="loading-spinner"></div>
+  </div>
+</body>
+</html>

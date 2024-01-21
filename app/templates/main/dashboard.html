@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main/dashboard_styles.css') }}">
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <h2>Welcome, {{ current_user.username }}!</h2>
+
+      <div class="transaction-list">
+        {% for transaction in transactions %}
+      <div class="transaction">
+          {% if transaction.title == 'Transfer' %}
+              Transaction: ${{ transaction.amount }} to {{ transaction.recipient_card_number }}
+          {% elif transaction.title == 'Received' %}
+              Transaction: ${{ transaction.amount }} from {{ transaction.recipient_card_number }}
+        {% endif %}
+        on {{ transaction.timestamp.strftime('%H:%M, %d:%m:%Y') }}
+    </div>
+    {% endfor %}
+      </div>
+
+      <div class="dashboard-buttons">
+        <a href="{{ url_for('main.profile') }}">
+          <button class="profile-button">Profile</button>
+        </a>
+        <a href="{{ url_for('main.transfer') }}">
+          <button class="transfer-button">Transfer</button>
+        </a>
+        <form method="POST" action="{{ url_for('auth.logout') }}">
+          <button class="logout-button" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
